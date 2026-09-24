@@ -1,0 +1,602 @@
+<title>Vorkan Coffee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Readex+Pro:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Vorkan is a single dark-roast world by design, with one paper-toned band. */
+  :root {
+    color-scheme: dark;
+    --roast: #1a110c;        /* Dark Coffee */
+    --roast-2: #24170f;
+    --roast-3: #2f1f15;
+    --earth: #6b4028;        /* Earth Brown */
+    --sand: #d6c4a6;         /* Sand Beige */
+    --bronze: #c29a62;       /* Bronze Accent */
+    --ember: #e0773a;        /* lava glow, used once */
+    --paper: #efe6d6;
+    --ink: #2b1a12;
+    --text: #eadfcc;
+    --muted: #a8977f;
+    --line: rgba(214, 196, 166, .16);
+    --display: "Josefin Sans", "Readex Pro", system-ui, sans-serif;
+    --body: "Readex Pro", system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    --wrap: 1160px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--roast);
+    color: var(--text);
+    font: 300 17px/1.7 var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--bronze); outline-offset: 3px; border-radius: 4px; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); }
+  h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.1; margin: 0; text-wrap: balance; }
+  html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3 { font-family: var(--body); line-height: 1.3; }
+  p { margin: 0; }
+  .eyebrow {
+    font: 500 12px/1 var(--mono);
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--bronze);
+  }
+  html[lang="ar"] .eyebrow { letter-spacing: .04em; font-family: var(--body); font-size: 14px; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 24px; border-radius: 999px;
+    font: 500 15px/1 var(--body); text-decoration: none; cursor: pointer;
+    border: 1px solid transparent; transition: transform .2s, background .2s, border-color .2s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--bronze); color: var(--roast); }
+  .btn-primary:hover { background: #d3ad76; }
+  .btn-ghost { border-color: var(--line); color: var(--text); background: transparent; }
+  .btn-ghost:hover { border-color: var(--bronze); }
+  .btn svg { width: 18px; height: 18px; flex: none; }
+
+  /* Nav */
+  .nav {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+    background: rgba(26, 17, 12, .86); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav .wrap { display: flex; align-items: center; gap: 24px; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .brand img { width: 34px; height: 34px; }
+  .brand span { font: 600 20px/1 "Josefin Sans", sans-serif; letter-spacing: .12em; color: var(--sand); padding-top: 3px; }
+  .nav-links { display: flex; gap: 26px; margin-inline-start: auto; font-size: 15px; }
+  .nav-links a { text-decoration: none; color: var(--muted); }
+  .nav-links a:hover { color: var(--sand); }
+  .lang {
+    background: none; border: 1px solid var(--line); color: var(--sand);
+    border-radius: 999px; padding: 7px 14px; font: 500 14px/1 var(--body); cursor: pointer;
+  }
+  .nav .btn { padding: 10px 18px; font-size: 14px; }
+  @media (max-width: 860px) { .nav-links { display: none; } .lang { margin-inline-start: auto; } }
+  @media (max-width: 440px) { .nav .btn span { display: none; } .nav .btn { padding: 10px; } }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; padding-block: clamp(56px, 9vw, 110px) clamp(56px, 8vw, 96px); }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
+  .hero h1 { font-size: clamp(42px, 6.6vw, 84px); color: var(--paper); letter-spacing: .01em; }
+  html[lang="ar"] .hero h1 { font-size: clamp(40px, 6vw, 76px); font-weight: 700; }
+  .hero h1 em { font-style: normal; color: var(--bronze); }
+  .hero-copy { display: grid; gap: 26px; }
+  .hero-copy > p { font-size: clamp(17px, 1.6vw, 20px); color: var(--muted); max-width: 34em; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font: 400 13px/1.4 var(--mono); color: var(--muted); }
+  .hero-meta b { color: var(--sand); font-weight: 500; }
+
+  .crater { position: relative; aspect-ratio: 1; max-width: 460px; width: 100%; justify-self: center; display: grid; place-items: center; }
+  .crater::before {
+    content: ""; position: absolute; inset: 6%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 62%, rgba(224, 119, 58, .55), rgba(194, 110, 50, .18) 38%, transparent 68%);
+    filter: blur(18px);
+    animation: ember 5.5s ease-in-out infinite;
+  }
+  .crater::after {
+    content: ""; position: absolute; inset: 0; border-radius: 50%;
+    border: 1px dashed rgba(194, 154, 98, .22);
+  }
+  .crater img { position: relative; width: 74%; filter: drop-shadow(0 20px 40px rgba(0, 0, 0, .5)); }
+  @keyframes ember { 0%, 100% { opacity: .65; transform: scale(.96); } 50% { opacity: 1; transform: scale(1.04); } }
+  @media (prefers-reduced-motion: reduce) { .crater::before { animation: none; } html { scroll-behavior: auto; } }
+  @media (max-width: 860px) {
+    .hero .wrap { grid-template-columns: 1fr; }
+    .crater { max-width: 240px; order: -1; }
+  }
+
+  /* Promise strip */
+  .strip { border-block: 1px solid var(--line); background: var(--roast-2); }
+  .strip .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .strip div { padding: 26px 20px; display: grid; gap: 4px; border-inline-start: 1px solid var(--line); }
+  .strip div:first-child { border-inline-start: 0; padding-inline-start: 0; }
+  .strip b { font-weight: 500; color: var(--sand); font-size: 16px; }
+  .strip span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+  @media (max-width: 860px) {
+    .strip .wrap { grid-template-columns: 1fr 1fr; }
+    .strip div { border-inline-start: 0; padding-inline: 0; border-top: 1px solid var(--line); }
+    .strip div:nth-child(-n+2) { border-top: 0; }
+  }
+
+  section { padding-block: clamp(72px, 10vw, 120px); }
+  .head { display: grid; gap: 14px; max-width: 640px; margin-bottom: 48px; }
+  .head h2 { font-size: clamp(32px, 4.2vw, 50px); color: var(--paper); }
+  .head p { color: var(--muted); }
+
+  /* Coffees */
+  .beans { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .bean {
+    background: var(--roast-2); border: 1px solid var(--line); border-radius: 18px;
+    padding: 28px; display: grid; gap: 20px; align-content: start;
+  }
+  .bean-top { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+  .bean h3 { font-size: 26px; color: var(--paper); }
+  .origin { font: 400 13px/1.4 var(--mono); color: var(--bronze); margin-top: 8px; }
+  html[lang="ar"] .origin { font-family: var(--body); }
+  .score {
+    flex: none; text-align: center; border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px;
+    font: 500 22px/1 var(--mono); color: var(--sand); font-variant-numeric: tabular-nums;
+  }
+  .score small { display: block; font-size: 10px; letter-spacing: .12em; color: var(--muted); margin-top: 5px; }
+  .notes { display: flex; flex-wrap: wrap; gap: 8px; }
+  .notes span { font-size: 13px; padding: 5px 12px; border-radius: 999px; background: var(--roast-3); color: var(--sand); }
+  .specs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; border-block: 1px solid var(--line); padding-block: 14px; }
+  .specs dt { font: 400 11px/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  html[lang="ar"] .specs dt { font-family: var(--body); letter-spacing: 0; font-size: 12px; }
+  .specs dd { margin: 4px 0 0; font-size: 15px; color: var(--text); font-variant-numeric: tabular-nums; }
+  .roast-scale { display: grid; gap: 8px; }
+  .roast-scale .lbl { display: flex; justify-content: space-between; font: 400 11px/1 var(--mono); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+  html[lang="ar"] .roast-scale .lbl { font-family: var(--body); letter-spacing: 0; font-size: 12px; }
+  .scale { position: relative; height: 8px; border-radius: 99px; background: linear-gradient(90deg, #c8a878, #9a6a3e, #5d3a22, #2a1a10); }
+  html[dir="rtl"] .scale { background: linear-gradient(-90deg, #c8a878, #9a6a3e, #5d3a22, #2a1a10); }
+  .scale i {
+    position: absolute; top: 50%; inset-inline-start: var(--r); width: 16px; height: 16px; border-radius: 50%;
+    background: var(--paper); border: 3px solid var(--roast); box-shadow: 0 0 0 1px var(--bronze);
+    transform: translate(-50%, -50%);
+  }
+  html[dir="rtl"] .scale i { transform: translate(50%, -50%); }
+  fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; }
+  legend { font: 400 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; padding: 0; }
+  html[lang="ar"] legend { font-family: var(--body); letter-spacing: 0; font-size: 12px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips input { position: absolute; opacity: 0; pointer-events: none; }
+  .chips label {
+    font-size: 13px; padding: 6px 13px; border-radius: 999px; border: 1px solid var(--line);
+    color: var(--muted); cursor: pointer; transition: all .15s;
+  }
+  .chips input:checked + label { background: var(--sand); color: var(--roast); border-color: var(--sand); }
+  .chips input:focus-visible + label { outline: 2px solid var(--bronze); outline-offset: 2px; }
+  .bean .btn { justify-self: start; }
+  @media (max-width: 860px) { .beans { grid-template-columns: 1fr; } }
+  @media (max-width: 440px) { .bean { padding: 22px 18px; } .specs { grid-template-columns: 1fr 1fr; } }
+
+  /* Paper band: process */
+  .paper { background: var(--paper); color: var(--ink); }
+  .paper .head h2 { color: var(--ink); }
+  .paper .head p { color: #6d5a48; }
+  .paper .eyebrow { color: var(--earth); }
+  .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: step; }
+  .step { padding: 0 24px 0 0; display: grid; gap: 12px; align-content: start; position: relative; }
+  html[dir="rtl"] .step { padding: 0 0 0 24px; }
+  .step::before {
+    counter-increment: step; content: counter(step, decimal-leading-zero);
+    font: 500 13px/1 var(--mono); color: var(--earth);
+    padding-bottom: 14px; border-bottom: 2px solid var(--ink);
+  }
+  .step h3 { font-size: 22px; color: var(--ink); }
+  .step p { font-size: 15px; color: #5b4938; line-height: 1.6; }
+  .bags-photo { margin-top: 56px; border-radius: 18px; overflow: hidden; aspect-ratio: 670 / 330; }
+  .bags-photo img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 860px) {
+    .process { grid-template-columns: 1fr 1fr; gap: 36px 0; }
+  }
+  @media (max-width: 480px) { .process { grid-template-columns: 1fr; } }
+
+  /* Roadmap */
+  .road-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: start; }
+  .road { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .road li { display: grid; grid-template-columns: 28px 1fr; gap: 18px; padding-bottom: 32px; position: relative; }
+  .road li::before {
+    content: ""; position: absolute; top: 22px; bottom: 0; inset-inline-start: 13px; width: 1px; background: var(--line);
+  }
+  .road li:last-child::before { display: none; }
+  .dot { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--bronze); display: grid; place-items: center; margin-top: 2px; }
+  .dot::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--roast-3); }
+  .road li.now .dot { background: var(--bronze); }
+  .road li.now .dot::after { background: var(--roast); }
+  .road .when { font: 500 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--bronze); }
+  html[lang="ar"] .road .when { font-family: var(--body); letter-spacing: 0; font-size: 13px; }
+  .road h3 { font-size: 22px; color: var(--paper); margin: 8px 0 6px; }
+  .road p { color: var(--muted); font-size: 15px; }
+  .trade {
+    background: var(--roast-2); border: 1px solid var(--line); border-radius: 18px; padding: 32px;
+    display: grid; gap: 18px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 96px);
+  }
+  .trade h3 { font-size: 26px; color: var(--paper); }
+  .trade p { color: var(--muted); }
+  .trade ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 15px; }
+  .trade li { display: flex; gap: 10px; }
+  .trade li::before { content: ""; flex: none; width: 6px; height: 6px; margin-top: 10px; border-radius: 50%; background: var(--bronze); }
+  @media (max-width: 860px) { .road-grid { grid-template-columns: 1fr; } .trade { position: static; } }
+
+  /* Gallery */
+  .gallery { display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: 240px 240px; gap: 14px; }
+  .gallery figure { margin: 0; border-radius: 14px; overflow: hidden; background: var(--roast-2); }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+  .gallery figure:hover img { transform: scale(1.04); }
+  .g1 { grid-row: span 2; }
+  @media (max-width: 760px) {
+    .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 280px 180px 180px; }
+    .g1 { grid-row: auto; grid-column: span 2; }
+  }
+
+  /* Contact */
+  .contact { background: radial-gradient(ellipse at 50% 0%, rgba(194, 154, 98, .12), transparent 60%), var(--roast-2); border-top: 1px solid var(--line); }
+  .contact .wrap { display: grid; gap: 28px; justify-items: center; text-align: center; }
+  .contact img.mark { width: 84px; }
+  .contact h2 { font-size: clamp(32px, 4.6vw, 56px); color: var(--paper); max-width: 16em; }
+  .contact p.lead { color: var(--muted); max-width: 32em; }
+  .phone {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center;
+    border: 1px solid var(--line); border-radius: 999px; padding: 8px 8px 8px 24px;
+  }
+  html[dir="rtl"] .phone { padding: 8px 24px 8px 8px; }
+  .phone output { font: 500 clamp(20px, 3vw, 26px)/1 var(--mono); color: var(--sand); direction: ltr; unicode-bidi: isolate; user-select: all; font-variant-numeric: tabular-nums; }
+  .copy { background: var(--roast-3); color: var(--sand); border: 0; border-radius: 999px; padding: 10px 16px; font: 500 13px/1 var(--body); cursor: pointer; }
+  .socials { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .socials span {
+    display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px;
+  }
+  .socials svg { width: 16px; height: 16px; fill: var(--sand); }
+  .soon { font: 400 12px/1 var(--mono); color: var(--muted); }
+  html[lang="ar"] .soon { font-family: var(--body); }
+
+  footer { border-top: 1px solid var(--line); padding-block: 28px; font-size: 13px; color: var(--muted); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; }
+  footer .brand span { font-size: 16px; }
+  footer .brand img { width: 26px; height: 26px; }
+
+  .wa-float {
+    position: fixed; z-index: 30; inset-inline-end: 18px; bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    width: 56px; height: 56px; border-radius: 50%; background: #25d366; display: grid; place-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+  }
+  .wa-float svg { width: 28px; height: 28px; fill: #fff; }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.02c-.25.69-1.44 1.33-1.99 1.38-.51.05-.99.24-3.33-.69-2.82-1.11-4.6-3.99-4.74-4.18-.14-.19-1.13-1.5-1.13-2.87s.72-2.03.97-2.31c.25-.28.55-.35.74-.35l.53.01c.17.01.4-.06.62.48.25.6.84 2.07.92 2.22.07.14.12.31.02.5-.1.19-.14.31-.28.48-.14.17-.3.37-.43.5-.14.14-.29.29-.12.57.17.28.74 1.21 1.58 1.96 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.61-.07.17-.19.71-.83.9-1.11.19-.28.37-.23.62-.14.25.09 1.6.76 1.87.9.28.14.46.21.53.32.07.12.07.67-.18 1.36Z"/></symbol>
+</svg>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Vorkan">
+      <img src="img/mark-sand.png" alt="">
+      <span>VORKAN</span>
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#coffees" data-t="nav1">Our coffees</a>
+      <a href="#craft" data-t="nav2">The roast</a>
+      <a href="#story" data-t="nav3">Our story</a>
+      <a href="#contact" data-t="nav4">Contact</a>
+    </nav>
+    <button class="lang" id="lang-toggle" type="button">عربي</button>
+    <a class="btn btn-primary wa-link" href="https://wa.me/201024699211" target="_blank" rel="noopener">
+      <svg aria-hidden="true"><use href="#wa"/></svg><span data-t="navcta">Order now</span>
+    </a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow" data-t="heroEyebrow">Premium coffee · Roasted with passion</p>
+        <h1 data-t="heroTitle" data-html>Coffee with a <em>volcanic</em> heart.</h1>
+        <p data-t="heroLead">Vorkan beans grow in volcanic soil, 1,200 to 2,200 metres up. We roast them in small batches and ship them fresh to your door anywhere in Egypt.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary wa-link" href="https://wa.me/201024699211" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#wa"/></svg><span data-t="heroCta1">Order on WhatsApp</span>
+          </a>
+          <a class="btn btn-ghost" href="#coffees" data-t="heroCta2">See the coffees</a>
+        </div>
+        <div class="hero-meta">
+          <span><b>4</b> <span data-t="meta1">roasts</span></span>
+          <span><b>250g · 500g · 1kg</b></span>
+          <span data-t="meta3">Delivery across Egypt</span>
+        </div>
+      </div>
+      <div class="crater" aria-hidden="true">
+        <img src="img/mark-sand.png" alt="">
+      </div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div class="wrap">
+      <div><b data-t="s1b">Roast date on every bag</b><span data-t="s1s">We roast to order. Your bag is never more than a week old.</span></div>
+      <div><b data-t="s2b">Ground the way you brew</b><span data-t="s2s">Whole bean, espresso, filter or extra‑fine Turkish.</span></div>
+      <div><b data-t="s3b">One‑way valve bags</b><span data-t="s3s">Sealed to keep the aroma in and the air out.</span></div>
+      <div><b data-t="s4b">Order in one message</b><span data-t="s4s">Pick your coffee and we confirm on WhatsApp.</span></div>
+    </div>
+  </div>
+
+  <section id="coffees">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow" data-t="cEyebrow">The coffees</p>
+        <h2 data-t="cTitle">Four roasts, from bright to bold</h2>
+        <p data-t="cLead">Each coffee lists its origin, altitude and process. Choose a size and a grind, and the order is ready to send.</p>
+      </div>
+
+      <div class="beans" id="beans"></div>
+    </div>
+  </section>
+
+  <section class="paper" id="craft">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow" data-t="pEyebrow">From green bean to your cup</p>
+        <h2 data-t="pTitle">How a Vorkan bag is made</h2>
+      </div>
+      <div class="process">
+        <div class="step"><h3 data-t="p1h">Source</h3><p data-t="p1p">We choose green coffee from volcanic highlands in Ethiopia, Brazil and Sumatra, tasting samples before we buy.</p></div>
+        <div class="step"><h3 data-t="p2h">Roast</h3><p data-t="p2p">Small batches, each with its own profile. Light roasts keep the fruit, dark roasts bring out the cocoa.</p></div>
+        <div class="step"><h3 data-t="p3h">Rest &amp; pack</h3><p data-t="p3p">Beans rest 24 hours to release CO₂, then go into valve bags stamped with the roast date.</p></div>
+        <div class="step"><h3 data-t="p4h">Deliver</h3><p data-t="p4p">Ground to your order and shipped across Egypt, usually within 1 to 3 days.</p></div>
+      </div>
+      <div class="bags-photo"><img src="img/bags.jpg" alt="Vorkan coffee bags in black and kraft paper"></div>
+    </div>
+  </section>
+
+  <section id="story">
+    <div class="wrap road-grid">
+      <div>
+        <div class="head">
+          <p class="eyebrow" data-t="rEyebrow">Our story</p>
+          <h2 data-t="rTitle">A coffee brand today. A coffee house tomorrow.</h2>
+          <p data-t="rLead">Vorkan takes its name from the volcano. It starts as an online brand and grows, step by step, into a full coffee trading company.</p>
+        </div>
+        <ol class="road">
+          <li class="now"><span class="dot"></span><div><span class="when" data-t="r1w">Now</span><h3 data-t="r1h">Online store &amp; community</h3><p data-t="r1p">Order through this site, Facebook, Instagram and TikTok.</p></div></li>
+          <li><span class="dot"></span><div><span class="when" data-t="r2w">Next</span><h3 data-t="r2h">Green coffee imports</h3><p data-t="r2p">Importing green beans directly from origin farms.</p></div></li>
+          <li><span class="dot"></span><div><span class="when" data-t="r3w">Then</span><h3 data-t="r3h">Roasted coffee exports</h3><p data-t="r3p">Taking Egyptian‑roasted Vorkan coffee to regional markets.</p></div></li>
+          <li><span class="dot"></span><div><span class="when" data-t="r4w">Across Egypt</span><h3 data-t="r4h">Distribution</h3><p data-t="r4p">Supplying cafés, offices and retailers nationwide.</p></div></li>
+        </ol>
+      </div>
+      <aside class="trade">
+        <p class="eyebrow" data-t="tEyebrow">Cafés &amp; offices</p>
+        <h3 data-t="tTitle">Serve Vorkan at your place</h3>
+        <p data-t="tLead">Wholesale pricing for cafés, restaurants and offices, with a steady roast schedule.</p>
+        <ul>
+          <li data-t="t1">Bulk bags from 5 kg</li>
+          <li data-t="t2">A house blend matched to your machine</li>
+          <li data-t="t3">Scheduled weekly or monthly delivery</li>
+        </ul>
+        <a class="btn btn-primary" id="wholesale" href="https://wa.me/201024699211" target="_blank" rel="noopener">
+          <svg aria-hidden="true"><use href="#wa"/></svg><span data-t="tCta">Ask for wholesale prices</span>
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="gallery">
+        <figure class="g1"><img src="img/emboss.jpg" alt="Vorkan logo embossed on dark paper"></figure>
+        <figure><img src="img/bean.jpg" alt="A roasted coffee bean on dark soil"></figure>
+        <figure><img src="img/cup.jpg" alt="Black Vorkan takeaway cup"></figure>
+        <figure style="grid-column: span 2"><img src="img/notebook.jpg" alt="Vorkan logo foil‑stamped in bronze" style="object-position:center 60%"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <img class="mark" src="img/mark-sand.png" alt="">
+      <h2 data-t="kTitle">Your first bag is one message away</h2>
+      <p class="lead" data-t="kLead">Message us on WhatsApp or call. We answer every day from 10 am to 10 pm.</p>
+      <div class="phone">
+        <output id="phone">+20 10 24699211</output>
+        <button class="copy" id="copy" type="button" data-t="copy">Copy number</button>
+      </div>
+      <div class="cta-row" style="justify-content:center">
+        <a class="btn btn-primary wa-link" href="https://wa.me/201024699211" target="_blank" rel="noopener">
+          <svg aria-hidden="true"><use href="#wa"/></svg><span data-t="kCta">Chat on WhatsApp</span>
+        </a>
+      </div>
+      <div class="socials" aria-label="Social media">
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V10H7v4h3v8h4v-8h3l1-4h-4V8.6c0-.4.2-.6.6-.6Z"/></svg>Facebook</span>
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.3A4.7 4.7 0 1 0 12 16.7 4.7 4.7 0 0 0 12 7.3Zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm6-7.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0ZM21 7.1c-.1-1.6-.4-3-1.6-4.1-1.1-1.1-2.5-1.5-4.1-1.6C13.7 1.3 10.3 1.3 8.7 1.4 7.1 1.5 5.7 1.8 4.6 3 3.4 4.1 3.1 5.5 3 7.1 2.9 8.7 2.9 15.3 3 16.9c.1 1.6.4 3 1.6 4.1 1.1 1.1 2.5 1.5 4.1 1.6 1.6.1 5 .1 6.6 0 1.6-.1 3-.4 4.1-1.6 1.1-1.1 1.5-2.5 1.6-4.1.1-1.6.1-8.2 0-9.8Z"/></svg>Instagram</span>
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-1.8-2.5V9.7a5.7 5.7 0 1 0 4.9 5.7V9.1a7.3 7.3 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6Z"/></svg>TikTok</span>
+      </div>
+      <p class="soon" data-t="soon">Social pages go live at launch</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/mark-sand.png" alt=""><span>VORKAN</span></a>
+    <span data-t="foot">© 2026 Vorkan Coffee · Egypt</span>
+  </div>
+</footer>
+
+<a class="wa-float wa-link" href="https://wa.me/201024699211" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg aria-hidden="true"><use href="#wa"/></svg>
+</a>
+
+<script>
+(function () {
+  var WA = "201024699211";
+
+  var coffees = [
+    { id: "yirg", score: "87", roast: 18,
+      name: { en: "Ethiopia Yirgacheffe", ar: "إثيوبيا يرجاشيف" },
+      origin: { en: "Gedeo Zone, Ethiopia", ar: "منطقة جيديو، إثيوبيا" },
+      notes: { en: ["Jasmine", "Lemon", "Bergamot"], ar: ["ياسمين", "ليمون", "برغموت"] },
+      alt: "1,900–2,200 m", process: { en: "Washed", ar: "مغسولة" }, roastName: { en: "Light", ar: "فاتح" } },
+    { id: "santos", score: "84", roast: 50,
+      name: { en: "Brazil Santos", ar: "برازيلي سانتوس" },
+      origin: { en: "Sul de Minas, Brazil", ar: "سول دي ميناس، البرازيل" },
+      notes: { en: ["Milk chocolate", "Hazelnut", "Caramel"], ar: ["شوكولاتة بالحليب", "بندق", "كراميل"] },
+      alt: "900–1,300 m", process: { en: "Natural", ar: "مجففة طبيعيًا" }, roastName: { en: "Medium", ar: "وسط" } },
+    { id: "sumatra", score: "85", roast: 78,
+      name: { en: "Sumatra Mandheling", ar: "سومطرة ماندهيلنج" },
+      origin: { en: "North Sumatra, Indonesia", ar: "شمال سومطرة، إندونيسيا" },
+      notes: { en: ["Dark cocoa", "Cedar", "Brown spice"], ar: ["كاكاو داكن", "خشب الأرز", "توابل"] },
+      alt: "1,100–1,500 m", process: { en: "Wet‑hulled", ar: "مقشورة رطبة" }, roastName: { en: "Dark", ar: "غامق" } },
+    { id: "turkish", score: "—", roast: 62, turkish: true,
+      name: { en: "Vorkan Turkish Blend", ar: "بن فوركان التركي" },
+      origin: { en: "Brazil & Ethiopia blend", ar: "خلطة برازيلي وإثيوبي" },
+      notes: { en: ["Plain or with cardamom", "Thick foam", "Smooth body"], ar: ["سادة أو محوّج", "وش كثيف", "قوام ناعم"] },
+      alt: "900–2,000 m", process: { en: "Blend", ar: "خلطة" }, roastName: { en: "Medium‑dark", ar: "وسط غامق" } }
+  ];
+
+  var grinds = {
+    en: ["Whole bean", "Espresso", "Filter", "Turkish"],
+    ar: ["حبوب كاملة", "إسبريسو", "فلتر", "تركي ناعم"]
+  };
+  var sizes = ["250g", "500g", "1kg"];
+
+  var dict = {
+    ar: {
+      nav1: "قهوتنا", nav2: "التحميص", nav3: "حكايتنا", nav4: "تواصل معنا", navcta: "اطلب الآن",
+      heroEyebrow: "بن فاخر · محمّص بشغف",
+      heroTitle: "قهوة <em>قلبها</em> بركان.",
+      heroLead: "حبوب فوركان بتطلع في تربة بركانية على ارتفاع من ١٢٠٠ لـ ٢٢٠٠ متر. بنحمّصها على دفعات صغيرة ونوصلها طازة لحد باب بيتك في أي مكان في مصر.",
+      heroCta1: "اطلب على واتساب", heroCta2: "شوف أنواع البن",
+      meta1: "أنواع تحميص", meta3: "توصيل لكل مصر",
+      s1b: "تاريخ التحميص على كل كيس", s1s: "بنحمّص حسب الطلب، والكيس عمره ما يعدّي أسبوع.",
+      s2b: "مطحون على طريقة تحضيرك", s2s: "حبوب كاملة، إسبريسو، فلتر، أو تركي ناعم.",
+      s3b: "أكياس بصمام تهوية", s3s: "مقفولة عشان الريحة تفضل جوه والهوا يفضل برّه.",
+      s4b: "طلبك في رسالة واحدة", s4s: "اختار قهوتك ونأكدلك على واتساب.",
+      cEyebrow: "قهوتنا", cTitle: "أربع تحميصات، من الفاتح للتقيل",
+      cLead: "كل نوع مكتوب عليه المنشأ والارتفاع وطريقة المعالجة. اختار الحجم والطحنة، والطلب يبقى جاهز للإرسال.",
+      pEyebrow: "من الحبة الخضرا لفنجانك", pTitle: "إزاي بيتعمل كيس فوركان",
+      p1h: "الاختيار", p1p: "بنختار البن الأخضر من مرتفعات بركانية في إثيوبيا والبرازيل وسومطرة، وبندوق العينات قبل الشرا.",
+      p2h: "التحميص", p2p: "دفعات صغيرة، كل واحدة ليها بروفايل خاص. التحميص الفاتح بيحافظ على الفاكهة، والغامق بيطلّع الكاكاو.",
+      p3h: "الراحة والتعبئة", p3p: "البن بيرتاح ٢٤ ساعة عشان يطلّع الغازات، وبعدين يتعبى في أكياس بصمام ومختومة بتاريخ التحميص.",
+      p4h: "التوصيل", p4p: "بنطحن على طلبك ونشحن لكل مصر، غالبًا خلال يوم لـ ٣ أيام.",
+      rEyebrow: "حكايتنا", rTitle: "براند بن النهارده. بيت قهوة بكرة.",
+      rLead: "اسم فوركان جاي من البركان. بنبدأ كبراند أونلاين، وبنكبر خطوة بخطوة لحد ما نبقى شركة كاملة لتجارة البن.",
+      r1w: "دلوقتي", r1h: "متجر أونلاين ومجتمع", r1p: "اطلب من الموقع ده أو من فيسبوك وإنستجرام وتيك توك.",
+      r2w: "الخطوة الجاية", r2h: "استيراد البن الأخضر", r2p: "استيراد مباشر للبن الأخضر من مزارع المنشأ.",
+      r3w: "بعدها", r3h: "تصدير البن المحمّص", r3p: "نوصّل بن فوركان المحمّص في مصر للأسواق الإقليمية.",
+      r4w: "في كل مصر", r4h: "التوزيع", r4p: "توريد للكافيهات والشركات ومحلات التجزئة في كل المحافظات.",
+      tEyebrow: "كافيهات وشركات", tTitle: "قدّم فوركان في مكانك",
+      tLead: "أسعار جملة للكافيهات والمطاعم والشركات، مع مواعيد تحميص ثابتة.",
+      t1: "أكياس كبيرة من ٥ كيلو", t2: "خلطة خاصة تناسب ماكينتك", t3: "توصيل أسبوعي أو شهري بمواعيد ثابتة",
+      tCta: "اسأل عن أسعار الجملة",
+      kTitle: "أول كيس ليك على بُعد رسالة", kLead: "كلمنا على واتساب أو اتصل بينا. بنرد كل يوم من ١٠ الصبح لـ ١٠ بالليل.",
+      copy: "انسخ الرقم", copied: "اتنسخ", kCta: "كلمنا على واتساب",
+      soon: "صفحات السوشيال ميديا هتنزل مع الإطلاق", foot: "© ٢٠٢٦ فوركان للبن · مصر",
+      score: "تقييم SCA", alt: "الارتفاع", process: "المعالجة", roast: "التحميص",
+      size: "الحجم", grind: "الطحنة", light: "فاتح", dark: "غامق", order: "اطلب على واتساب",
+      msg: "أهلاً فوركان، عايز أطلب:", msgWholesale: "أهلاً فوركان، عايز أعرف أسعار الجملة للكافيهات/الشركات."
+    },
+    en: {
+      score: "SCA score", alt: "Altitude", process: "Process", roast: "Roast",
+      size: "Size", grind: "Grind", light: "Light", dark: "Dark", order: "Order on WhatsApp", copied: "Copied",
+      msg: "Hi Vorkan, I'd like to order:", msgWholesale: "Hi Vorkan, I'd like wholesale prices for my café/office."
+    }
+  };
+
+  // Capture the English copy already in the markup.
+  document.querySelectorAll("[data-t]").forEach(function (el) {
+    dict.en[el.dataset.t] = el.hasAttribute("data-html") ? el.innerHTML : el.textContent;
+  });
+
+  var lang = "ar";
+  try { lang = localStorage.getItem("vorkan-lang") || "ar"; } catch (e) {}
+
+  function t(k) { return (dict[lang] && dict[lang][k]) || dict.en[k] || k; }
+  function waUrl(text) { return "https://wa.me/" + WA + "?text=" + encodeURIComponent(text); }
+
+  function renderBeans() {
+    var box = document.getElementById("beans");
+    box.innerHTML = coffees.map(function (c) {
+      var g = grinds[lang];
+      var defGrind = c.turkish ? 3 : 0;
+      return '<article class="bean" data-id="' + c.id + '">' +
+        '<div class="bean-top"><div><h3>' + c.name[lang] + '</h3><p class="origin">' + c.origin[lang] + '</p></div>' +
+        '<div class="score">' + c.score + '<small>' + t("score") + '</small></div></div>' +
+        '<div class="notes">' + c.notes[lang].map(function (n) { return "<span>" + n + "</span>"; }).join("") + '</div>' +
+        '<dl class="specs"><div><dt>' + t("alt") + '</dt><dd><bdi dir="ltr">' + c.alt + '</bdi></dd></div>' +
+        '<div><dt>' + t("process") + '</dt><dd>' + c.process[lang] + '</dd></div>' +
+        '<div><dt>' + t("roast") + '</dt><dd>' + c.roastName[lang] + '</dd></div></dl>' +
+        '<div class="roast-scale"><div class="lbl"><span>' + t("light") + '</span><span>' + t("dark") + '</span></div>' +
+        '<div class="scale" style="--r:' + c.roast + '%"><i></i></div></div>' +
+        '<fieldset><legend>' + t("size") + '</legend><div class="chips">' +
+        sizes.map(function (s, i) {
+          var id = c.id + "-s" + i;
+          return '<input type="radio" name="' + c.id + '-size" id="' + id + '" value="' + s + '"' + (i === 0 ? " checked" : "") + '><label for="' + id + '">' + s + '</label>';
+        }).join("") + '</div></fieldset>' +
+        '<fieldset><legend>' + t("grind") + '</legend><div class="chips">' +
+        g.map(function (s, i) {
+          var id = c.id + "-g" + i;
+          return '<input type="radio" name="' + c.id + '-grind" id="' + id + '" value="' + s + '"' + (i === defGrind ? " checked" : "") + '><label for="' + id + '">' + s + '</label>';
+        }).join("") + '</div></fieldset>' +
+        '<a class="btn btn-primary order" target="_blank" rel="noopener" href="#"><svg aria-hidden="true"><use href="#wa"/></svg><span>' + t("order") + '</span></a>' +
+        '</article>';
+    }).join("");
+    box.querySelectorAll(".bean").forEach(updateOrder);
+  }
+
+  function updateOrder(card) {
+    var c = coffees.find(function (x) { return x.id === card.dataset.id; });
+    var size = card.querySelector('input[name$="-size"]:checked').value;
+    var grind = card.querySelector('input[name$="-grind"]:checked').value;
+    card.querySelector(".order").href = waUrl(t("msg") + "\n" + c.name[lang] + " · " + size + " · " + grind);
+  }
+
+  document.getElementById("beans").addEventListener("change", function (e) {
+    var card = e.target.closest(".bean");
+    if (card) updateOrder(card);
+  });
+
+  function apply() {
+    var root = document.documentElement;
+    root.lang = lang;
+    root.dir = lang === "ar" ? "rtl" : "ltr";
+    document.querySelectorAll("[data-t]").forEach(function (el) {
+      var v = t(el.dataset.t);
+      if (el.hasAttribute("data-html")) el.innerHTML = v; else el.textContent = v;
+    });
+    document.getElementById("lang-toggle").textContent = lang === "ar" ? "English" : "عربي";
+    document.getElementById("wholesale").href = waUrl(t("msgWholesale"));
+    document.querySelectorAll(".wa-link").forEach(function (a) { a.href = waUrl(t("msg")); });
+    renderBeans();
+  }
+
+  document.getElementById("lang-toggle").addEventListener("click", function () {
+    lang = lang === "ar" ? "en" : "ar";
+    try { localStorage.setItem("vorkan-lang", lang); } catch (e) {}
+    apply();
+  });
+
+  document.getElementById("copy").addEventListener("click", function () {
+    var btn = this, num = "+201024699211";
+    function done() { btn.textContent = t("copied"); setTimeout(function () { btn.textContent = t("copy"); }, 1600); }
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById("phone"));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    }
+    try {
+      navigator.clipboard.writeText(num).then(done, fallback);
+    } catch (e) { fallback(); }
+  });
+
+  apply();
+})();
+</script>
