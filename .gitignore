@@ -1,3 +1,4 @@
 node_modules/
 reel/out/stills/
 reel/out/render.log
+reel/out/*.mp4
