@@ -11,7 +11,7 @@ import {SCENES} from './theme';
 export type ReelProps = {whatsapp: string};
 
 // Swap in the real number/handle here (or via --props) before rendering.
-export const reelSchemaDefaults: ReelProps = {whatsapp: '+20 1X XXXX XXXX'};
+export const reelSchemaDefaults: ReelProps = {whatsapp: '01515962796'};
 
 export const Reel: React.FC<ReelProps> = ({whatsapp}) => {
 	const scenes: [keyof typeof SCENES, React.ReactNode][] = [

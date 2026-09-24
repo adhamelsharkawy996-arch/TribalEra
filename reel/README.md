@@ -6,7 +6,7 @@ Vertical 1080×1920, 30fps, 35s reel built with [Remotion](https://remotion.dev)
 npm install
 npm run studio                 # live preview / tweak in the browser
 npx remotion render src/index.ts AlphaTechReel out/alpha-tech-reel.mp4 \
-  --props='{"whatsapp":"+20 10 1234 5678"}'   # put your real number here
+  --props='{"whatsapp":"01515962796"}'   # put your real number here
 ```
 
 - Scene lengths: `src/theme.ts` (`SCENES`)
