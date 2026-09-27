@@ -2,3 +2,4 @@ node_modules/
 reel/out/stills/
 reel/out/render.log
 reel/out/*.mp4
+reel/public/audio/placeholder-music.mp3

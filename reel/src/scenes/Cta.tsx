@@ -3,7 +3,11 @@ import {KineticText} from '../components/KineticText';
 import {Logo} from '../components/Phone';
 import {colors, FONT} from '../theme';
 
-export const Cta: React.FC<{whatsapp: string}> = ({whatsapp}) => {
+export const Cta: React.FC<{whatsapp: string; tagline?: string; button?: string}> = ({
+	whatsapp,
+	tagline = 'شركتك كلها في شات واتساب واحد',
+	button = '💬 ابعتلنا على واتساب',
+}) => {
 	const frame = useCurrentFrame();
 	const {fps} = useVideoConfig();
 	const logo = spring({frame, fps, config: {damping: 10}});
@@ -17,7 +21,7 @@ export const Cta: React.FC<{whatsapp: string}> = ({whatsapp}) => {
 				<Logo size={200} />
 			</div>
 			<div style={{fontSize: 100, fontWeight: 900, color: '#fff', opacity: logo, textShadow: `0 0 40px ${colors.violet}`}}>Project Alpha Tech</div>
-			<KineticText text="شركتك كلها في شات واتساب واحد" size={54} weight={800} delay={10} stagger={3} style={{padding: '0 60px'}} />
+			<KineticText text={tagline} size={54} weight={800} delay={10} stagger={3} style={{padding: '0 60px'}} />
 			<div style={{position: 'relative', marginTop: 30}}>
 				<div
 					style={{
@@ -42,7 +46,7 @@ export const Cta: React.FC<{whatsapp: string}> = ({whatsapp}) => {
 						boxShadow: `0 0 70px ${colors.green}`,
 					}}
 				>
-					💬 ابعتلنا على واتساب
+					{button}
 				</div>
 			</div>
 			<div style={{fontSize: 52, fontWeight: 800, color: colors.green, direction: 'ltr', opacity: btn}}>{whatsapp}</div>

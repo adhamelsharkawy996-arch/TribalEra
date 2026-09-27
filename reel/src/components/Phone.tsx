@@ -89,7 +89,7 @@ const Bubble: React.FC<{from: 'user' | 'ai'; at: number; children: React.ReactNo
 };
 
 // WhatsApp-style phone. Messages stack from the bottom, so new ones push old ones up like a real chat.
-export const Phone: React.FC<{items: ChatItem[]}> = ({items}) => {
+export const Phone: React.FC<{items: ChatItem[]; title?: string}> = ({items, title = 'Project Alpha Tech'}) => {
 	const frame = useCurrentFrame();
 	const {fps} = useVideoConfig();
 	const enter = spring({frame, fps, config: {damping: 16}});
@@ -129,7 +129,7 @@ export const Phone: React.FC<{items: ChatItem[]}> = ({items}) => {
 			<div style={{background: '#202C33', padding: '26px 30px', display: 'flex', alignItems: 'center', gap: 20}}>
 				<Logo size={78} />
 				<div style={{display: 'flex', flexDirection: 'column'}}>
-					<div style={{color: '#fff', fontSize: 36, fontWeight: 800, direction: 'ltr', textAlign: 'right'}}>Project Alpha Tech</div>
+					<div style={{color: '#fff', fontSize: 36, fontWeight: 800}}>{title}</div>
 					<div style={{color: thinking ? colors.green : colors.muted, fontSize: 26, fontWeight: 600}}>{thinking ? 'بيكتب…' : 'متصل الآن'}</div>
 				</div>
 			</div>

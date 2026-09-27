@@ -72,3 +72,16 @@ Project Alpha Tech runs an AI system on WhatsApp that replies instantly, underst
 **GEO** (Generative Engine Optimization) is SEO for AI answers. People now ask ChatGPT instead of searching Google, and if your business isn't in that answer, customers won't find you.
 
 No dashboards, no email threads, no waiting. Message Project Alpha Tech and see your prototype today.
+
+
+---
+
+## ريل ٢: نورا بقت أقوى + عرض الإطلاق
+
+فيديو ٢٥ ثانية (`NoraOffer`). الكابشن الجاهز في `reel/brag-output/share-copy.txt`.
+
+**العرض من النهارده:**
+- موقع ٥ صفحات، يتسلّم خلال ساعات (السعر: تواصل معانا)
+- سنة مجانًا: استضافة، حماية عالية، وتعديلات ٢٤/٧ من الواتساب
+- امتلاك اللاندينج بيدج (البروتوتايب المجاني): ١٥٠٠ ج
+- الدومين بسعره الحقيقي
