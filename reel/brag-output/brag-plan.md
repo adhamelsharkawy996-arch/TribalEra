@@ -22,6 +22,7 @@ existing WhatsApp chat components could be reused ("show the thing").
 | 6 | 21.5–25s | CTA | Logo, "كلّم نورا على واتساب", 01515962796 | كلّم نورا دلوقتي على واتساب! | slam |
 
 ## Audio
+- Current music: `public/audio/nora-offer/beat.mp3`, an original royalty-free beat synthesized by `scripts/beat.py` (128 BPM, D Hijaz), hits at 0s / 16s / 21.5s / 26s.
 - Voice + music: ElevenLabs via `node scripts/audio.mjs --reel nora-offer` (voice "Nora", `eleven_v3`, 26s instrumental).
 - SFX: Kenney UI sounds (CC0) bundled with the brag skill, in `public/sfx/`.
 - Until ElevenLabs audio exists, the render falls back to a local placeholder track if `public/audio/placeholder-music.mp3` is present
