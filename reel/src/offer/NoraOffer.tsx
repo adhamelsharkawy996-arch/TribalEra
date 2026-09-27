@@ -12,7 +12,7 @@ import {SameDay} from './SameDay';
 import {Sfx} from './Sfx';
 import {OFFER_SCENES, OFFER_TOTAL, OfferScene} from './timing';
 
-const POSTER_OFFER_FRAME = 175;
+const POSTER_OFFER_FRAME = 290;
 
 type Manifest = {voiceover: {scene: OfferScene; file: string; duration: number}[]; music: string | null};
 const audio = manifest as Manifest;

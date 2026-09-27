@@ -28,12 +28,12 @@ const Page: React.FC<{label: string; tint: string}> = ({label, tint}) => (
 	</div>
 );
 
-// 11-14.5s: payment confirmed, then five pages fan out: the full site, same day.
+// 11-16s: payment confirmed, then five pages fan out: the full site, same day.
 export const SameDay: React.FC = () => {
 	const frame = useCurrentFrame();
 	const {fps} = useVideoConfig();
 	const paid = spring({frame, fps, config: {damping: 10}});
-	const badge = spring({frame: frame - 62, fps, config: {damping: 9}});
+	const badge = spring({frame: frame - 100, fps, config: {damping: 9}});
 	return (
 		<AbsoluteFill style={{alignItems: 'center', fontFamily: FONT, direction: 'rtl'}}>
 			<div
@@ -57,7 +57,7 @@ export const SameDay: React.FC = () => {
 			</div>
 			<div style={{position: 'relative', width: 1080, height: 620, marginTop: 30}}>
 				{PAGES.map((label, i) => {
-					const s = spring({frame: frame - 22 - i * 6, fps, config: {damping: 13, stiffness: 150}});
+					const s = spring({frame: frame - 30 - i * 12, fps, config: {damping: 13, stiffness: 150}});
 					const offset = i - 2;
 					return (
 						<div
@@ -94,9 +94,9 @@ export const SameDay: React.FC = () => {
 			</div>
 			<Sfx at={0} name="ding" volume={0.5} />
 			{PAGES.map((_, i) => (
-				<Sfx key={i} at={22 + i * 6} name="tick" volume={0.25} />
+				<Sfx key={i} at={30 + i * 12} name="tick" volume={0.25} />
 			))}
-			<Sfx at={62} name="slam" volume={0.55} />
+			<Sfx at={100} name="slam" volume={0.55} />
 		</AbsoluteFill>
 	);
 };

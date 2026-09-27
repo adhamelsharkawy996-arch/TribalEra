@@ -4,17 +4,17 @@ import {colors, FONT} from '../theme';
 import {Sfx} from './Sfx';
 
 const PERKS = ['موقع ٥ صفحات', 'استضافة مجانية سنة كاملة', 'حماية عالية 🔒', 'تعديلات مجانية ٢٤/٧ من الواتساب', 'تسليم خلال ساعات ⚡'];
-const SWAP = 118; // checklist out, price card in
+const SWAP = 165; // checklist out, price card in
 
 const toArabic = (n: number) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[Number(d)]);
 
-// 14.5-21.5s: the launch offer. Checklist first, then the price card (staggered, never a double exposure).
+// 16-26s: the launch offer. Checklist first, then the price card (staggered, never a double exposure).
 export const Offer: React.FC = () => {
 	const frame = useCurrentFrame();
 	const {fps} = useVideoConfig();
 	const listOut = interpolate(frame, [SWAP, SWAP + 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
 	const price = spring({frame: frame - SWAP - 10, fps, config: {damping: 11}});
-	const amount = Math.round(interpolate(frame, [SWAP + 14, SWAP + 40], [0, 1500], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}));
+	const amount = Math.round(interpolate(frame, [SWAP + 14, SWAP + 50], [0, 1500], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}));
 	const pulse = 1 + Math.max(0, Math.sin(frame / 4)) * 0.05;
 
 	return (
@@ -26,7 +26,7 @@ export const Offer: React.FC = () => {
 			{frame < SWAP + 10 ? (
 				<div style={{marginTop: 60, display: 'flex', flexDirection: 'column', gap: 26, width: 900, opacity: 1 - listOut, transform: `translateY(${-listOut * 80}px)`}}>
 					{PERKS.map((perk, i) => {
-						const s = spring({frame: frame - 12 - i * 12, fps, config: {damping: 12, stiffness: 170}});
+						const s = spring({frame: frame - 14 - i * 22, fps, config: {damping: 12, stiffness: 170}});
 						return (
 							<div
 								key={perk}
@@ -55,7 +55,7 @@ export const Offer: React.FC = () => {
 										alignItems: 'center',
 										justifyContent: 'center',
 										flexShrink: 0,
-										transform: `scale(${spring({frame: frame - 18 - i * 12, fps, config: {damping: 8}})})`,
+										transform: `scale(${spring({frame: frame - 20 - i * 22, fps, config: {damping: 8}})})`,
 									}}
 								>
 									✓
@@ -87,7 +87,7 @@ export const Offer: React.FC = () => {
 						</div>
 					</div>
 					{['🌐 الدومين بسعره الحقيقي', '📄 الموقع الكامل: كلّمنا للسعر'].map((line, i) => {
-						const s = spring({frame: frame - SWAP - 36 - i * 8, fps, config: {damping: 12}});
+						const s = spring({frame: frame - SWAP - 55 - i * 14, fps, config: {damping: 12}});
 						return (
 							<div key={line} style={{fontSize: 48, fontWeight: 800, color: '#fff', background: '#ffffff12', border: '2px solid #ffffff2a', borderRadius: 999, padding: '10px 40px', opacity: s, transform: `translateY(${interpolate(s, [0, 1], [30, 0])}px)`}}>
 								{line}
@@ -98,10 +98,10 @@ export const Offer: React.FC = () => {
 			)}
 			<Sfx at={0} name="slam" volume={0.6} />
 			{PERKS.map((_, i) => (
-				<Sfx key={i} at={18 + i * 12} name="tick" volume={0.3} />
+				<Sfx key={i} at={20 + i * 22} name="tick" volume={0.3} />
 			))}
 			<Sfx at={SWAP + 10} name="slam" volume={0.6} />
-			<Sfx at={SWAP + 40} name="ding" volume={0.5} />
+			<Sfx at={SWAP + 50} name="ding" volume={0.5} />
 		</AbsoluteFill>
 	);
 };

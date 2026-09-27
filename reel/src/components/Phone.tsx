@@ -1,4 +1,4 @@
-import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
+import {Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {colors, FONT} from '../theme';
 
 export const PHONE = {top: 450, width: 820, height: 1050};
@@ -7,25 +7,12 @@ export type ChatItem =
 	| {from: 'user'; at: number; text: string; typeFrames?: number}
 	| {from: 'ai'; at: number; node: React.ReactNode; thinkFrames?: number};
 
+// Project Alpha Tech mark (public/logo.jpg), cropped to a rounded tile.
 const Logo: React.FC<{size: number}> = ({size}) => (
-	<div
-		style={{
-			width: size,
-			height: size,
-			borderRadius: '50%',
-			background: `linear-gradient(135deg, ${colors.violet}, ${colors.green})`,
-			display: 'flex',
-			alignItems: 'center',
-			justifyContent: 'center',
-			color: '#fff',
-			fontWeight: 900,
-			fontSize: size * 0.55,
-			fontFamily: 'serif',
-			flexShrink: 0,
-		}}
-	>
-		α
-	</div>
+	<Img
+		src={staticFile('logo.jpg')}
+		style={{width: size, height: size, borderRadius: size * 0.24, objectFit: 'cover', flexShrink: 0, boxShadow: '0 0 0 2px #2f5bff55'}}
+	/>
 );
 
 const TypingDots: React.FC = () => {

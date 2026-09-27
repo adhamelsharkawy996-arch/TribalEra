@@ -35,17 +35,17 @@ const REELS = {
 	'nora-offer': {
 		dir: 'nora-offer',
 		models: ['eleven_v3'],
-		musicMs: 26000,
+		musicMs: 30000,
 		lines: [
 			['hook', 2.5, '[excited] نورا بقت أقوى من الأول!'],
 			['gather', 5.5, '[confident] ابعتلها على واتساب، وهي تفهم البيزنس بتاعك كله، وتقولها: ابدأ!'],
 			['prototype', 3, '[excited] وفي ساعات، البروتوتايب عندك!'],
-			['sameday', 3.5, 'وبعد الدفع، موقعك كامل، في نفس اليوم!'],
-			['offer', 7, '[excited] عرض من النهارده! موقع خمس صفحات، واستضافة وحماية وتعديلات مجانًا لمدة سنة. واللاندينج بيدج بألف وخمسمية جنيه بس!'],
+			['sameday', 5, 'وبعد الدفع، موقعك كامل، في نفس اليوم!'],
+			['offer', 10, '[excited] عرض من النهارده! موقع خمس صفحات، واستضافة وحماية وتعديلات مجانًا لمدة سنة. واللاندينج بيدج بألف وخمسمية جنيه بس!'],
 			['cta', 3.5, '[excited] كلّم نورا دلوقتي على واتساب!'],
 		],
 		music:
-			'Upbeat Egyptian mahraganat-inspired electronic beat for a 25 second social media ad, punchy drums, ' +
+			'Upbeat Egyptian mahraganat-inspired electronic beat for a 30 second social media ad, punchy drums, ' +
 			'energetic synth hook, festive and confident, 128 BPM, starts immediately with no intro, clean ending, instrumental only, no vocals',
 	},
 };

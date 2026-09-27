@@ -15,7 +15,7 @@ export const Hook: React.FC = () => {
 	return (
 		<AbsoluteFill style={{justifyContent: 'center', alignItems: 'center', gap: 50, transform: `translate(${Math.sin(frame * 9) * shake}px, ${Math.cos(frame * 7) * shake}px)`}}>
 			<div style={{position: 'relative', transform: `scale(${badge})`}}>
-				<div style={{position: 'absolute', inset: -10, borderRadius: '50%', border: `6px solid ${colors.green}`, transform: `scale(${ring})`, opacity: ringOpacity}} />
+				<div style={{position: 'absolute', inset: -10, borderRadius: '28%', border: `6px solid ${colors.green}`, transform: `scale(${ring})`, opacity: ringOpacity}} />
 				<div style={{filter: `drop-shadow(0 0 60px ${colors.green})`}}>
 					<Logo size={230} />
 				</div>
